@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:money_management_app/view/home/home_screen.dart';
 
 void main() {
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'MoneyManagement',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+            fontFamily: GoogleFonts.inter().fontFamily),
         debugShowCheckedModeBanner: false,
         home: MyHomeScreen());
   }

@@ -33,9 +33,8 @@ class MoneyStatusBar extends StatelessWidget {
             style: CustomFuction.style(fontWeight: FontWeight.bold, size: 18),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Divider(color: Colors.grey.withAlpha(50)),
-          ),
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Divider(color: CustomColors.kblue.withAlpha(100))),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

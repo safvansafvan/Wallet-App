@@ -22,7 +22,7 @@ class MyHomeScreen extends StatelessWidget {
           return pages[updatedInd];
         },
       )),
-      drawer: DrawerWidget(),
+      drawer: const DrawerWidget(),
       bottomNavigationBar: const BottomNavigation(),
       floatingActionButton: FloatingActionButton.small(
         backgroundColor: CustomColors.commonClr,
