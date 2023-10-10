@@ -28,4 +28,22 @@ class CustomHeights {
     );
     return height;
   }
+
+  static commonheight(context) {
+    Size size = MediaQuery.of(context).size;
+    var height = SizedBox(
+      height: size.height * 0.03,
+    );
+    return height;
+  }
+}
+
+class CustomWidth {
+  static widthFive(context) {
+    Size size = MediaQuery.of(context).size;
+    var width = SizedBox(
+      width: size.width * 0.01,
+    );
+    return width;
+  }
 }

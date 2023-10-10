@@ -40,23 +40,25 @@ class _CategoryScreenState extends State<CategoryScreen>
           ),
           centerTitle: true,
         ),
-        TabBar(
-          controller: controller,
-          labelStyle:
-              CustomFuction.style(fontWeight: FontWeight.bold, size: 16),
-          tabs: [
-            Tab(
-              text: 'Income',
-            ),
-            Tab(
-              text: 'Expence',
-            ),
-          ],
+        ColoredBox(
+          color: CustomColors.commonClr,
+          child: TabBar(
+            controller: controller,
+            indicatorColor: CustomColors.kwhite,
+            labelColor: CustomColors.kwhite,
+            unselectedLabelColor: CustomColors.kwhite,
+            labelStyle:
+                CustomFuction.style(fontWeight: FontWeight.bold, size: 16),
+            tabs: const [
+              Tab(text: 'Income'),
+              Tab(text: 'Expence'),
+            ],
+          ),
         ),
         Expanded(
           child: TabBarView(
               controller: controller,
-              children: [IncomeTabBar(), ExpenceTabBar()]),
+              children: const [IncomeTabBar(), ExpenceTabBar()]),
         )
       ],
     );

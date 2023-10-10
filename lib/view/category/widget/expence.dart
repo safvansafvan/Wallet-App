@@ -15,7 +15,7 @@ class ExpenceTabBar extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
                 color: CustomColors.containerColor,
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: CustomColors.kblue.withAlpha(100)),
                 boxShadow: [BoxShadow(color: CustomColors.kblue)]),
             child: Center(

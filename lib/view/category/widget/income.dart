@@ -14,10 +14,15 @@ class IncomeTabBar extends StatelessWidget {
             height: 60,
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
-                color: CustomColors.containerColor,
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: CustomColors.kblue.withAlpha(100)),
-                boxShadow: [BoxShadow(color: CustomColors.kblue)]),
+              color: CustomColors.containerColor,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: CustomColors.kblue.withAlpha(100),
+              ),
+              boxShadow: [
+                BoxShadow(color: CustomColors.kblue),
+              ],
+            ),
             child: Center(
               child: ListTile(
                 title: Text(
@@ -26,11 +31,12 @@ class IncomeTabBar extends StatelessWidget {
                       fontWeight: FontWeight.w600, size: 16),
                 ),
                 trailing: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.delete_outline_outlined,
-                      color: CustomColors.kred,
-                    )),
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.delete_outline_outlined,
+                    color: CustomColors.kred,
+                  ),
+                ),
               ),
             ),
           ),
