@@ -46,4 +46,12 @@ class CustomWidth {
     );
     return width;
   }
+
+  static commonWidth(context) {
+    Size size = MediaQuery.of(context).size;
+    var width = SizedBox(
+      width: size.width * 0.03,
+    );
+    return width;
+  }
 }

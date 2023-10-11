@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:money_management_app/view/home/home_screen.dart';
+import 'package:money_management_app/view/auth/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: GoogleFonts.inter().fontFamily),
       debugShowCheckedModeBanner: false,
-      home: MyHomeScreen(),
+      home: const LoginScreen(),
     );
   }
 }
