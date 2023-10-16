@@ -15,6 +15,7 @@ class LoginScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            CustomHeights.heightFive(context),
             const LoginHeaderWidget(),
             const LoginOptionsWidget(),
             Container(
