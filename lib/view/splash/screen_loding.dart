@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:money_management_app/controller/core/constant.dart';
+import 'package:money_management_app/controller/getx/login_controller.dart';
 import 'package:money_management_app/view/auth/login.dart';
+import 'package:money_management_app/view/home/home_screen.dart';
 
 class ScrennLoadingScreen extends StatefulWidget {
   const ScrennLoadingScreen({super.key});
@@ -59,8 +62,13 @@ class _ScrennLoadingScreenState extends State<ScrennLoadingScreen> {
   }
 
   Future<void> navigation(context) async {
+    final controller = Get.put(LoginController());
+
     await Future.delayed(const Duration(seconds: 3), () {});
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+    controller.isSignedIn.value == false
+        ? Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()))
+        : Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => MyHomeScreen()));
   }
 }

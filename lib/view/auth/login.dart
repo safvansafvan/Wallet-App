@@ -19,7 +19,7 @@ class LoginScreen extends StatelessWidget {
             const LoginHeaderWidget(),
             const LoginOptionsWidget(),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 25),
+              margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
                   Text(
