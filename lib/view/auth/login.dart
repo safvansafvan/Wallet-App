@@ -4,11 +4,14 @@ import 'package:money_management_app/view/auth/widget/header_widget.dart';
 import 'package:money_management_app/view/auth/widget/login_options_widget.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  final GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: CustomColors.kblack,
       body: SafeArea(
         child: Column(
@@ -17,7 +20,7 @@ class LoginScreen extends StatelessWidget {
           children: [
             CustomHeights.heightFive(context),
             const LoginHeaderWidget(),
-            const LoginOptionsWidget(),
+            LoginOptionsWidget(),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(

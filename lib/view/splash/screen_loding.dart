@@ -66,8 +66,8 @@ class _ScrennLoadingScreenState extends State<ScrennLoadingScreen> {
 
     await Future.delayed(const Duration(seconds: 3), () {});
     controller.isSignedIn.value == false
-        ? Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()))
+        ? Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()))
         : Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => MyHomeScreen()));
   }

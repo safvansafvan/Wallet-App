@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -88,5 +88,32 @@ class LoginController extends GetxController {
       _hasError.value = true;
       update();
     }
+  }
+
+  Future<bool> userExist() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_uid!.value)
+        .get();
+    if (snap.exists) {
+      log('user exist');
+      return true;
+    } else {
+      log('new user');
+      return false;
+    }
+  }
+
+  Future<void> signOut() async {
+    await googleSignIn.signOut();
+    await firebaseAuth.signOut();
+    _isSignedIn.value = false;
+    update();
+    clearStorageDatas();
+  }
+
+  Future<void> clearStorageDatas() async {
+    final SharedPreferences storage = await SharedPreferences.getInstance();
+    storage.clear();
   }
 }
