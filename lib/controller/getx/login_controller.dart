@@ -90,6 +90,41 @@ class LoginController extends GetxController {
     }
   }
 
+  Future<void> getDataFromFirestore(uid) async {
+    await FirebaseFirestore.instance.collection('users').doc(uid).get().then(
+          (DocumentSnapshot snapshot) => {
+            _uid = snapshot['uid'],
+            _name = snapshot['name'],
+            _email = snapshot['email'],
+            _imgUrl = snapshot['imgUrl'],
+            _provider = snapshot['provider']
+          },
+        );
+  }
+
+  Future<void> saveDataToFirestore() async {
+    final DocumentReference reference =
+        FirebaseFirestore.instance.collection('users').doc(uid!.value);
+    await reference.set({
+      'name': _name,
+      'email': _email,
+      'uid': _uid,
+      'imgUrl': _imgUrl,
+      'provider': _provider
+    });
+    update();
+  }
+
+  Future<void> saveDataFromStorage() async {
+    final SharedPreferences storage = await SharedPreferences.getInstance();
+    storage.setString('name', _name!.value);
+    storage.setString('email', _email!.value);
+    storage.setString('uid', _uid!.value);
+    storage.setString('imgUrl', _imgUrl!.value);
+    storage.setString('provider', _provider!.value);
+    update();
+  }
+
   Future<bool> userExist() async {
     DocumentSnapshot snap = await FirebaseFirestore.instance
         .collection('users')
@@ -102,6 +137,13 @@ class LoginController extends GetxController {
       log('new user');
       return false;
     }
+  }
+
+  Future setSignIn() async {
+    final SharedPreferences storage = await SharedPreferences.getInstance();
+    storage.setBool('sign_in', true);
+    _isSignedIn.value = true;
+    update();
   }
 
   Future<void> signOut() async {

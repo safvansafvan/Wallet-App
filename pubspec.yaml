@@ -1,7 +1,7 @@
 name: money_management_app
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none' 
 
 version: 1.0.0+1
 
@@ -18,7 +18,7 @@ dependencies:
   lottie: ^2.6.0
   firebase_core: ^2.17.0
   firebase_auth: ^4.10.1
-  google_sign_in: ^6.1.5
+  google_sign_in: ^5.4.0
   cloud_firestore: ^4.9.3
   flutter_facebook_auth: ^6.0.2
   get: ^4.6.6
