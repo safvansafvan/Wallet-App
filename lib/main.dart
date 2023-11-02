@@ -3,12 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:money_management_app/model/category.dart';
 import 'package:money_management_app/view/splash/screen_loding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+  await Hive.initFlutter();
+  if (!Hive.isAdapterRegistered(CategoryTypeAdapter().typeId)) {
+    Hive.registerAdapter(CategoryTypeAdapter());
+  }
+  if (!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)) {
+    Hive.registerAdapter(CategoryModelAdapter());
+  }
   await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 

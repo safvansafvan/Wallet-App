@@ -113,8 +113,15 @@ class LoginOptionsWidget extends StatelessWidget {
             googleController.reset();
           } else {
             signIn.userExist().then(
-              (value) {
+              (value) async {
                 if (value == true) {
+                  await signIn.getDataFromFirestore(signIn.uid).then((value) =>
+                      signIn
+                          .saveDataFromStorage()
+                          .then((value) => signIn.setSignIn().then((value) {
+                                googleController.success();
+                                handleAfterSignedIn(context);
+                              })));
                 } else {
                   signIn.saveDataToFirestore().then(
                         (value) => signIn.saveDataFromStorage().then(

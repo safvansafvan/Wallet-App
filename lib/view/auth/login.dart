@@ -13,41 +13,29 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: CustomColors.kblack,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomHeights.heightFive(context),
-            const LoginHeaderWidget(),
-            LoginOptionsWidget(),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: [
-                  Text(
-                    'By continuing,you are indicating that you accept our',
-                    style: TextStyle(color: CustomColors.kwhite),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'Terms Of Serivice',
-                        style: TextStyle(color: CustomColors.commonClr),
-                      ),
-                      Text(
-                        ' and ',
-                        style: TextStyle(color: CustomColors.kwhite),
-                      ),
-                      Text('Privacy Policy',
-                          style: TextStyle(color: CustomColors.commonClr))
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CustomHeights.heightFive(context),
+          const LoginHeaderWidget(),
+          LoginOptionsWidget(),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Text(
+                  'By continuing,you are indicating that you accept our',
+                  style: TextStyle(color: CustomColors.kwhite),
+                ),
+                RichText(
+                    text: const TextSpan(
+                  text: 'Terms Of Serivice And Privacy Policy',
+                ))
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

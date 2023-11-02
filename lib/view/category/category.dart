@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money_management_app/controller/core/constant.dart';
-import 'package:money_management_app/view/category/widget/expence.dart';
-import 'package:money_management_app/view/category/widget/income.dart';
+import 'package:money_management_app/view/category/tab_bar/expence.dart';
+import 'package:money_management_app/view/category/tab_bar/income.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});

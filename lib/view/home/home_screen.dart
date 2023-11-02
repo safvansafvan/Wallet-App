@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/view/category/category.dart';
+import 'package:money_management_app/view/category/widget/category_add_pop.dart';
 import 'package:money_management_app/view/home/widgets/bottom_navigation.dart';
 import 'package:money_management_app/view/widgets/drawer/drawer.dart';
 import 'package:money_management_app/view/transaction/transactions.dart';
@@ -37,6 +38,7 @@ class MyHomeScreen extends StatelessWidget {
             log('trasations');
           } else {
             log('categories');
+            showCategoryPopUp(context);
           }
         },
       ),
