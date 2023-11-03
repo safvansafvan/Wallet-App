@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:money_management_app/controller/core/constant.dart';
+import 'package:money_management_app/view/add_transaction/add_transaction.dart';
 import 'package:money_management_app/view/category/category.dart';
 import 'package:money_management_app/view/category/widget/category_add_pop.dart';
 import 'package:money_management_app/view/home/widgets/bottom_navigation.dart';
@@ -35,6 +36,7 @@ class MyHomeScreen extends StatelessWidget {
         ),
         onPressed: () {
           if (selectedIndex.value == 0) {
+            Navigator.of(context).pushNamed(AddTransaction.routeName);
             log('trasations');
           } else {
             log('categories');

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category.dart';
+part of 'category_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -19,7 +19,7 @@ class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
     return CategoryModel(
       id: fields[0] as String,
       name: fields[1] as String,
-      type: fields[3] as String,
+      type: fields[3] as CategoryType,
       isDeleted: fields[2] as bool,
     );
   }
@@ -56,10 +56,10 @@ class CategoryTypeAdapter extends TypeAdapter<CategoryType> {
   @override
   CategoryType read(BinaryReader reader) {
     switch (reader.readByte()) {
-      case 1:
+      case 0:
         return CategoryType.income;
-      case 2:
-        return CategoryType.expence;
+      case 1:
+        return CategoryType.expense;
       default:
         return CategoryType.income;
     }
@@ -69,10 +69,10 @@ class CategoryTypeAdapter extends TypeAdapter<CategoryType> {
   void write(BinaryWriter writer, CategoryType obj) {
     switch (obj) {
       case CategoryType.income:
-        writer.writeByte(1);
+        writer.writeByte(0);
         break;
-      case CategoryType.expence:
-        writer.writeByte(2);
+      case CategoryType.expense:
+        writer.writeByte(1);
         break;
     }
   }

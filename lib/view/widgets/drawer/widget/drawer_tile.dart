@@ -7,18 +7,25 @@ class DrawerTileWidget extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: CustomColors.containerColor,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: CustomColors.commonClr),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Row(
-          children: [Icon(icon), CustomWidth.widthFive(context), Text(text)],
+    return GestureDetector(
+      onTap: () async {
+        if (text == 'Clear Datas') {
+          // await CategoryDb.instance.clearCategoryData();
+        }
+      },
+      child: Container(
+        height: 50,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: CustomColors.containerColor,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: CustomColors.commonClr),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Row(
+            children: [Icon(icon), CustomWidth.widthFive(context), Text(text)],
+          ),
         ),
       ),
     );

@@ -68,7 +68,10 @@ class DrawerWidget extends StatelessWidget {
                   const DrawerTileWidget(
                       icon: Icons.feedback_outlined, text: 'Feedback'),
                   CustomHeights.heightFive(context),
-                  const DrawerTileWidget(icon: Icons.settings, text: 'Settings')
+                  const DrawerTileWidget(
+                      icon: Icons.settings, text: 'Settings'),
+                  CustomHeights.heightFive(context),
+                  const DrawerTileWidget(icon: Icons.clear, text: 'Clear Datas')
                 ],
               ),
             ),
