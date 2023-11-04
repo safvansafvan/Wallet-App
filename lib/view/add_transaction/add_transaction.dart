@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/controller/getx/globel_controller.dart';
 import 'package:money_management_app/db/category.dart';
@@ -15,6 +16,7 @@ class AddTransaction extends StatefulWidget {
 }
 
 class _AddTransactionState extends State<AddTransaction> {
+  String? selectIdDrop;
   @override
   void initState() {
     Get.put(GlobelController(), permanent: true).setDefultIncomeCategory();
@@ -30,6 +32,19 @@ class _AddTransactionState extends State<AddTransaction> {
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: CircleAvatar(
+                  radius: 25,
+                  child: IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(
+                        Icons.arrow_back_ios_rounded,
+                        color: CustomColors.commonClr,
+                      )),
+                ),
+              ),
+              CustomHeights.heightFive(context),
               TextFormField(
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -70,9 +85,11 @@ class _AddTransactionState extends State<AddTransaction> {
                 },
                 icon: const Icon(Icons.calendar_today),
                 label: GetBuilder<GlobelController>(builder: (ctrl) {
+                  final formattedDate = DateFormat.MMMEd()
+                      .format(ctrl.selectedDate ?? DateTime.now());
                   return Text(ctrl.selectedDate == null
                       ? 'Select Date'
-                      : controller.selectedDate.toString());
+                      : formattedDate);
                 }),
               ),
               GetBuilder<GlobelController>(builder: (ctrl) {
@@ -86,6 +103,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           groupValue: ctrl.selectedCategoryType,
                           onChanged: (value) {
                             ctrl.updateCategoryType(CategoryType.income);
+                            selectIdDrop = null;
                           },
                         ),
                         Text(
@@ -102,6 +120,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           groupValue: ctrl.selectedCategoryType,
                           onChanged: (value) {
                             ctrl.updateCategoryType(CategoryType.expense);
+                            selectIdDrop = null;
                           },
                         ),
                         Text(
@@ -115,8 +134,9 @@ class _AddTransactionState extends State<AddTransaction> {
                 );
               }),
               GetBuilder<GlobelController>(builder: (ctrl) {
-                return DropdownButton(
+                return DropdownButton<String>(
                   hint: const Text('Select Category'),
+                  value: selectIdDrop,
                   items: (ctrl.selectedCategoryType == CategoryType.income
                           ? CategoryDb().incomeCategoryListNotifier
                           : CategoryDb().expenceCategoryListNotifier)
@@ -124,7 +144,11 @@ class _AddTransactionState extends State<AddTransaction> {
                       .map((e) {
                     return DropdownMenuItem(value: e.id, child: Text(e.name));
                   }).toList(),
-                  onChanged: (value) {},
+                  onChanged: (selectedVal) {
+                    setState(() {
+                      selectIdDrop = selectedVal;
+                    });
+                  },
                 );
               }),
               CustomHeights.heightFive(context),

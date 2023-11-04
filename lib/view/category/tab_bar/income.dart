@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/db/category.dart';
 import '../../../model/category_model.dart';
@@ -14,39 +15,44 @@ class IncomeTabBar extends StatelessWidget {
           return ListView.builder(
             itemBuilder: (context, index) {
               final category = newList[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Container(
-                  height: 60,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: CustomColors.containerColor,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: CustomColors.kblue.withAlpha(100),
-                    ),
-                    boxShadow: [
-                      BoxShadow(color: CustomColors.kblue),
-                    ],
-                  ),
-                  child: Center(
-                    child: ListTile(
-                      title: Text(
-                        category.name,
-                        style: CustomFuction.style(
-                            fontWeight: FontWeight.w600, size: 16),
-                      ),
-                      trailing: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.delete_outline_outlined,
-                          color: CustomColors.kred,
+              return (CategoryDb
+                      .instance.incomeCategoryListNotifier.value.isEmpty)
+                  ? Center(
+                      child: Lottie.asset('assets/animation/empty.json'),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Container(
+                        height: 60,
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        decoration: BoxDecoration(
+                          color: CustomColors.containerColor,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: CustomColors.kblue.withAlpha(100),
+                          ),
+                          boxShadow: [
+                            BoxShadow(color: CustomColors.kblue),
+                          ],
+                        ),
+                        child: Center(
+                          child: ListTile(
+                            title: Text(
+                              category.name,
+                              style: CustomFuction.style(
+                                  fontWeight: FontWeight.w600, size: 16),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.delete_outline_outlined,
+                                color: CustomColors.kred,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-              );
+                    );
             },
             itemCount: newList.length,
           );
