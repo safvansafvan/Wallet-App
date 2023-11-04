@@ -17,13 +17,12 @@ class MyHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: ValueListenableBuilder(
+      body: ValueListenableBuilder(
         valueListenable: selectedIndex,
         builder: (context, updatedInd, _) {
           return pages[updatedInd];
         },
-      )),
+      ),
       drawer: const DrawerWidget(),
       bottomNavigationBar: const BottomNavigation(),
       floatingActionButton: FloatingActionButton.small(

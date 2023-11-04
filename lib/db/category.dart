@@ -10,7 +10,7 @@ abstract class CategoryDbFunctions {
   Future<List<CategoryModel>> getCategorys();
   Future<void> insertCategory(CategoryModel value);
   Future<void> deleteAllCategory();
-  // Future<void> clearCategoryData();
+  Future<void> clearCategoryData();
 }
 
 class CategoryDb implements CategoryDbFunctions {
@@ -64,10 +64,10 @@ class CategoryDb implements CategoryDbFunctions {
     reloadUi();
   }
 
-  // @override
-  // Future<void> clearCategoryData() async {
-  //   await Hive.deleteBoxFromDisk(categoryDbName);
-  //   final categoryBox = await Hive.openBox<CategoryModel>(categoryDbName);
-  //   await categoryBox.clear();
-  // }
+  @override
+  Future<void> clearCategoryData() async {
+    await Hive.deleteBoxFromDisk(categoryDbName);
+    final categoryBox = await Hive.openBox<CategoryModel>(categoryDbName);
+    await categoryBox.clear();
+  }
 }
