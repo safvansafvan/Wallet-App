@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:money_management_app/controller/core/constant.dart';
+import 'package:money_management_app/controller/getx/category_db_controller.dart';
 import 'package:money_management_app/controller/getx/globel_controller.dart';
-import 'package:money_management_app/db/category.dart';
-import 'package:money_management_app/model/category_model.dart';
+import 'package:money_management_app/model/category/category_model.dart';
 
 class AddTransaction extends StatefulWidget {
   static const routeName = 'add_transation';
@@ -25,7 +25,8 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(GlobelController(), permanent: true);
+    final controller = Get.put(GlobelController());
+    final categoryController = Get.put(CategoryDbController());
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -138,9 +139,8 @@ class _AddTransactionState extends State<AddTransaction> {
                   hint: const Text('Select Category'),
                   value: selectIdDrop,
                   items: (ctrl.selectedCategoryType == CategoryType.income
-                          ? CategoryDb().incomeCategoryListNotifier
-                          : CategoryDb().expenceCategoryListNotifier)
-                      .value
+                          ? categoryController.incomeCategoryList
+                          : categoryController.expenceCategoryList)
                       .map((e) {
                     return DropdownMenuItem(value: e.id, child: Text(e.name));
                   }).toList(),

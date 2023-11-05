@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:money_management_app/controller/core/constant.dart';
-import 'package:money_management_app/db/category.dart';
-import '../../../model/category_model.dart';
+import 'package:get/get.dart';
+import 'package:money_management_app/controller/getx/category_db_controller.dart';
+import 'package:money_management_app/view/category/widget/category_tile_widget.dart';
 import '../../widgets/empty_lottie.dart';
 
 class ExpenceTabBar extends StatelessWidget {
@@ -10,48 +10,22 @@ class ExpenceTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return ValueListenableBuilder(
-        valueListenable: CategoryDb().expenceCategoryListNotifier,
-        builder: (context, List<CategoryModel> newList, _) {
-          if (CategoryDb.instance.incomeCategoryListNotifier.value.isEmpty) {
-            return emptyLottiePop(
-                messsage: 'No Expence Category', screenSize: screenSize);
-          } else {
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                final expence = newList[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Container(
-                    height: 60,
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                        color: CustomColors.containerColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: CustomColors.kblue.withAlpha(100)),
-                        boxShadow: [BoxShadow(color: CustomColors.kblue)]),
-                    child: Center(
-                      child: ListTile(
-                        title: Text(
-                          expence.name,
-                          style: CustomFuction.style(
-                              fontWeight: FontWeight.w600, size: 16),
-                        ),
-                        trailing: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.delete_outline_outlined,
-                              color: CustomColors.kred,
-                            )),
-                      ),
-                    ),
-                  ),
-                );
-              },
-              itemCount: newList.length,
-            );
-          }
-        });
+    return GetBuilder<CategoryDbController>(builder: (controller) {
+      if (controller.expenceCategoryList.isEmpty) {
+        return emptyLottiePop(
+            messsage: 'No Expence Category', screenSize: screenSize);
+      } else {
+        return ListView.builder(
+          itemBuilder: (context, index) {
+            final expence = controller.expenceCategoryList[index];
+            return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: categoryTileWidget(
+                    screenSize: screenSize, category: expence));
+          },
+          itemCount: controller.expenceCategoryList.length,
+        );
+      }
+    });
   }
 }

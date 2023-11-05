@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:money_management_app/controller/core/constant.dart';
-import 'package:money_management_app/db/category.dart';
 
 class DrawerTileWidget extends StatelessWidget {
   const DrawerTileWidget({super.key, required this.icon, required this.text});
@@ -10,9 +9,7 @@ class DrawerTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        if (text == 'Clear Datas') {
-          await CategoryDb.instance.clearCategoryData();
-        }
+        if (text == 'Clear Datas') {}
       },
       child: Container(
         height: 50,

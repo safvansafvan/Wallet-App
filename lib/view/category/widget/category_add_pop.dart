@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:money_management_app/controller/core/constant.dart';
-import 'package:money_management_app/db/category.dart';
-import 'package:money_management_app/model/category_model.dart';
+import 'package:money_management_app/controller/getx/category_db_controller.dart';
+import 'package:money_management_app/model/category/category_model.dart';
 
 ValueNotifier<CategoryType> selectedCategoryNotifier =
     ValueNotifier(CategoryType.income);
 
 Future<void> showCategoryPopUp(BuildContext context) async {
-  TextEditingController addCategoryController = TextEditingController();
+  final categoryController = Get.put(CategoryDbController());
+  final TextEditingController addCategoryController = TextEditingController();
   showDialog(
     context: context,
     builder: (context) => SimpleDialog(
@@ -34,34 +36,31 @@ Future<void> showCategoryPopUp(BuildContext context) async {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Radiobutton(title: 'Income', type: CategoryType.income),
               Radiobutton(title: 'Expence', type: CategoryType.expense)
             ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Cancel')),
-            TextButton(
-                onPressed: () {
-                  final name = addCategoryController.text;
-                  if (name.isEmpty) {
-                    return;
-                  }
-                  final type = selectedCategoryNotifier.value;
-                  final category = CategoryModel(
-                      id: DateTime.now().millisecondsSinceEpoch.toString(),
-                      name: name,
-                      type: type);
-                  CategoryDb.instance.insertCategory(category);
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Add'))
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: ElevatedButton(
+              onPressed: () async {
+                final name = addCategoryController.text;
+                if (name.isEmpty) {
+                  return;
+                }
+                final type = selectedCategoryNotifier.value;
+                final category = CategoryModel(
+                    id: DateTime.now().millisecondsSinceEpoch.toString(),
+                    name: name,
+                    type: type);
+                await categoryController.insertCategory(category);
+                // ignore: use_build_context_synchronously
+                Navigator.of(context).pop();
+              },
+              child: const Text('Add')),
         )
       ],
     ),

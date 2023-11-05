@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:money_management_app/controller/core/constant.dart';
-import 'package:money_management_app/db/category.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:money_management_app/controller/getx/category_db_controller.dart';
 import 'package:money_management_app/view/widgets/empty_lottie.dart';
-import '../../../model/category_model.dart';
+
+import '../widget/category_tile_widget.dart';
 
 class IncomeTabBar extends StatelessWidget {
   const IncomeTabBar({super.key});
@@ -10,52 +11,22 @@ class IncomeTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return ValueListenableBuilder(
-        valueListenable: CategoryDb().incomeCategoryListNotifier,
-        builder: (context, List<CategoryModel> newList, _) {
-          if (CategoryDb.instance.incomeCategoryListNotifier.value.isEmpty) {
-            return emptyLottiePop(
-                messsage: 'No Income Category', screenSize: screenSize);
-          } else {
-            return ListView.builder(
-                itemCount: newList.length,
-                itemBuilder: (context, index) {
-                  final category = newList[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Container(
-                      height: 60,
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                        color: CustomColors.containerColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                          color: CustomColors.kblue.withAlpha(100),
-                        ),
-                        boxShadow: [
-                          BoxShadow(color: CustomColors.kblue),
-                        ],
-                      ),
-                      child: Center(
-                        child: ListTile(
-                          title: Text(
-                            category.name,
-                            style: CustomFuction.style(
-                                fontWeight: FontWeight.w600, size: 16),
-                          ),
-                          trailing: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.delete_outline_outlined,
-                              color: CustomColors.kred,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                });
-          }
-        });
+    return GetBuilder<CategoryDbController>(builder: (controller) {
+      if (controller.incomeCategoryList.isEmpty) {
+        return emptyLottiePop(
+            messsage: 'No Income Category', screenSize: screenSize);
+      } else {
+        return ListView.builder(
+            itemCount: controller.incomeCategoryList.length,
+            itemBuilder: (context, index) {
+              final category = controller.incomeCategoryList[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: categoryTileWidget(
+                    screenSize: screenSize, category: category),
+              );
+            });
+      }
+    });
   }
 }

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:money_management_app/model/category_model.dart';
+import 'package:money_management_app/model/category/category_model.dart';
 
 class GlobelController extends GetxController {
   DateTime? selectedDate;

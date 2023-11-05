@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:money_management_app/model/category_model.dart';
+import 'package:money_management_app/model/category/category_model.dart';
+import 'package:money_management_app/model/transation.dart/transation_model.dart';
 import 'package:money_management_app/view/add_transaction/add_transaction.dart';
 import 'package:money_management_app/view/splash/screen_loding.dart';
 
@@ -15,6 +16,9 @@ void main() async {
   }
   if (!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)) {
     Hive.registerAdapter(CategoryModelAdapter());
+  }
+  if (!Hive.isAdapterRegistered(TransationModelAdapter().typeId)) {
+    Hive.registerAdapter(TransationModelAdapter());
   }
 
   runApp(const MyApp());
