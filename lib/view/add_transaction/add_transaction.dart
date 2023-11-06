@@ -5,7 +5,10 @@ import 'package:intl/intl.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/controller/getx/category_db_controller.dart';
 import 'package:money_management_app/controller/getx/globel_controller.dart';
+import 'package:money_management_app/controller/getx/transaction_db_controller.dart';
 import 'package:money_management_app/model/category/category_model.dart';
+import 'package:money_management_app/model/transaction.dart/transaction_model.dart';
+import '../widgets/common_text_field.dart';
 
 class AddTransaction extends StatefulWidget {
   static const routeName = 'add_transation';
@@ -16,6 +19,10 @@ class AddTransaction extends StatefulWidget {
 }
 
 class _AddTransactionState extends State<AddTransaction> {
+  GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+  TextEditingController purposeController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
+
   String? selectIdDrop;
   @override
   void initState() {
@@ -46,29 +53,21 @@ class _AddTransactionState extends State<AddTransaction> {
                 ),
               ),
               CustomHeights.heightFive(context),
-              TextFormField(
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: CustomColors.commonClr, width: 1.5)),
-                    hintText: 'Purpose',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    )),
-              ),
-              CustomHeights.heightFive(context),
-              TextFormField(
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: CustomColors.commonClr, width: 1.5)),
-                    hintText: 'Amount',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    )),
-              ),
+              Form(
+                  key: globalKey,
+                  child: Column(
+                    children: [
+                      CommonTextFormField(
+                          keyboardType: TextInputType.name,
+                          amountController: amountController,
+                          title: 'Purpose'),
+                      CustomHeights.heightFive(context),
+                      CommonTextFormField(
+                          keyboardType: TextInputType.number,
+                          amountController: amountController,
+                          title: 'Amount'),
+                    ],
+                  )),
               TextButton.icon(
                 onPressed: () async {
                   final selectedTempDate = await showDatePicker(
@@ -142,7 +141,13 @@ class _AddTransactionState extends State<AddTransaction> {
                           ? categoryController.incomeCategoryList
                           : categoryController.expenceCategoryList)
                       .map((e) {
-                    return DropdownMenuItem(value: e.id, child: Text(e.name));
+                    return DropdownMenuItem(
+                      value: e.id,
+                      child: Text(e.name),
+                      onTap: () {
+                        controller.selectedCategoryModel = e;
+                      },
+                    );
                   }).toList(),
                   onChanged: (selectedVal) {
                     setState(() {
@@ -153,7 +158,11 @@ class _AddTransactionState extends State<AddTransaction> {
               }),
               CustomHeights.heightFive(context),
               ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (globalKey.currentState!.validate()) {
+                      addTrasnsaction();
+                    }
+                  },
                   icon: const Icon(Icons.check),
                   label: const Text('Submit'))
             ],
@@ -161,5 +170,24 @@ class _AddTransactionState extends State<AddTransaction> {
         ),
       ),
     );
+  }
+
+  Future<void> addTrasnsaction() async {
+    final globelController = Get.put(GlobelController());
+    final transactionController = Get.put(TransactionDbController());
+    if (selectIdDrop == null) {
+      return;
+    }
+    if (globelController.selectedCategoryModel == null) {
+      return;
+    }
+    final amount = double.parse(amountController.text);
+    final model = TransactionModel(
+        purpose: purposeController.text,
+        amount: amount,
+        date: globelController.selectedDate!,
+        type: globelController.selectedCategoryType!,
+        category: globelController.selectedCategoryModel!);
+    await transactionController.insertTransaction(model);
   }
 }

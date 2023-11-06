@@ -7,6 +7,7 @@ const categoryDbName = 'category_db';
 class CategoryDbController extends GetxController {
   List<CategoryModel> incomeCategoryList = [];
   List<CategoryModel> expenceCategoryList = [];
+  CategoryModel? categoryModel;
 
   Future<void> insertCategory(CategoryModel value) async {
     final categoryBox = await Hive.openBox<CategoryModel>(categoryDbName);
