@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'widgets/transaction_field_widget.dart';
 import 'package:money_management_app/controller/core/constant.dart';
-import 'package:money_management_app/controller/getx/transaction_db_controller.dart';
-import 'package:money_management_app/model/category/category_model.dart';
-import 'package:money_management_app/view/transaction/widgets/custom_cliper_shape.dart';
-import 'package:money_management_app/view/transaction/widgets/money_status_bar.dart';
 import 'package:money_management_app/view/widgets/common_header.dart';
 import 'package:money_management_app/view/widgets/empty_lottie.dart';
+import 'package:money_management_app/controller/getx/transaction_db_controller.dart';
+import 'package:money_management_app/view/transaction/widgets/custom_cliper_shape.dart';
+import 'package:money_management_app/view/transaction/widgets/money_status_bar.dart';
 
 class TrasactionsScreen extends StatelessWidget {
   const TrasactionsScreen({super.key});
@@ -99,43 +99,8 @@ class TrasactionsScreen extends StatelessWidget {
                 String date = DateFormat.MMMd().format(values.date);
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Container(
-                      height: screenSize.height * 0.1,
-                      padding: const EdgeInsets.all(7),
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                          color: CustomColors.containerColor,
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                              color: CustomColors.kblue.withAlpha(100)),
-                          boxShadow: [BoxShadow(color: CustomColors.kblue)]),
-                      child: Center(
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: values.type == CategoryType.income
-                                ? CustomColors.kgreen
-                                : CustomColors.kred,
-                            radius: 30,
-                            child: Text(
-                              date,
-                              style: TextStyle(color: CustomColors.kwhite),
-                            ),
-                          ),
-                          title: Text(
-                            '\$${values.amount}',
-                            style: CustomFuction.style(
-                                fontWeight: FontWeight.w600, size: 18),
-                          ),
-                          subtitle: Text(
-                            values.purpose,
-                            style: CustomFuction.style(
-                                fontWeight: FontWeight.w500, size: 15),
-                          ),
-                          trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.more_vert)),
-                        ),
-                      )),
+                  child: TransactionFieldWidget(
+                      screenSize: screenSize, values: values, date: date),
                 );
               },
               itemCount: controller.transaction.length,
