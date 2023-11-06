@@ -19,7 +19,7 @@ class CommonTextFormField extends StatelessWidget {
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: CustomColors.commonClr, width: 1.5)),
+            borderSide: BorderSide(color: CustomColors.commonClr, width: 2)),
         hintText: title,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
