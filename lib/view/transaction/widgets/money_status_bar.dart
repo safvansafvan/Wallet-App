@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:money_management_app/controller/core/constant.dart';
+import 'package:money_management_app/controller/getx/transaction_db_controller.dart';
 
 class MoneyStatusBar extends StatelessWidget {
   const MoneyStatusBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final transactionController = Get.put(TransactionDbController());
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
       height: 170,
@@ -29,7 +32,7 @@ class MoneyStatusBar extends StatelessWidget {
                 color: CustomColors.commonClr),
           ),
           Text(
-            ' \$500.00',
+            ' \$${transactionController.balance}',
             style: CustomFuction.style(fontWeight: FontWeight.bold, size: 18),
           ),
           Padding(
@@ -47,7 +50,7 @@ class MoneyStatusBar extends StatelessWidget {
                           fontWeight: FontWeight.bold, size: 14),
                     ),
                     Text(
-                      '\$50.00',
+                      '\$${transactionController.income}',
                       style: CustomFuction.style(
                           fontWeight: FontWeight.bold,
                           size: 18,
@@ -65,7 +68,7 @@ class MoneyStatusBar extends StatelessWidget {
                           fontWeight: FontWeight.bold, size: 14),
                     ),
                     Text(
-                      '\$45.00',
+                      '\$${transactionController.expence}',
                       style: CustomFuction.style(
                           fontWeight: FontWeight.bold,
                           size: 18,

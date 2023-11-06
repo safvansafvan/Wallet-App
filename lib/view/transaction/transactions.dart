@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/controller/getx/transaction_db_controller.dart';
+import 'package:money_management_app/model/category/category_model.dart';
 import 'package:money_management_app/view/transaction/widgets/custom_cliper_shape.dart';
 import 'package:money_management_app/view/transaction/widgets/money_status_bar.dart';
 import 'package:money_management_app/view/widgets/common_header.dart';
@@ -111,11 +112,13 @@ class TrasactionsScreen extends StatelessWidget {
                       child: Center(
                         child: ListTile(
                           leading: CircleAvatar(
-                            backgroundColor: CustomColors.containerColor,
+                            backgroundColor: values.type == CategoryType.income
+                                ? CustomColors.kgreen
+                                : CustomColors.kred,
                             radius: 30,
                             child: Text(
                               date,
-                              style: TextStyle(color: CustomColors.kblack),
+                              style: TextStyle(color: CustomColors.kwhite),
                             ),
                           ),
                           title: Text(
