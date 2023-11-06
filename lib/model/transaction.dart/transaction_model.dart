@@ -15,15 +15,13 @@ class TransactionModel {
   @HiveField(4)
   final CategoryModel category;
   @HiveField(5)
-  String? id;
+  final String id;
 
   TransactionModel(
       {required this.purpose,
       required this.amount,
       required this.date,
       required this.type,
-      required this.category}) {
-    id:
-    DateTime.now().millisecondsSinceEpoch.toString();
-  }
+      required this.category,
+      required this.id});
 }

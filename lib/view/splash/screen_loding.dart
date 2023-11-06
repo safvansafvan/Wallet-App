@@ -64,6 +64,6 @@ class _ScrennLoadingScreenState extends State<ScrennLoadingScreen> {
     //     ? Navigator.pushReplacement(
     //         context, MaterialPageRoute(builder: (context) => LoginScreen()))
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => MyHomeScreen()));
+        context, MaterialPageRoute(builder: (context) => const MyHomeScreen()));
   }
 }

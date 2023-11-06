@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/controller/getx/transaction_db_controller.dart';
 import 'package:money_management_app/view/transaction/widgets/custom_cliper_shape.dart';
@@ -17,14 +18,14 @@ class TrasactionsScreen extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            height: 250,
+            height: screenSize.height * 0.29,
             width: double.infinity,
             child: Stack(
               children: [
                 ClipPath(
                   clipper: CustomClipperShape(),
                   child: Container(
-                    height: 230,
+                    height: screenSize.height * 0.26,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -89,15 +90,16 @@ class TrasactionsScreen extends StatelessWidget {
               return emptyLottiePop(
                   messsage: 'No Transaction', screenSize: screenSize);
             }
-            return ListView.separated(
+            return ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
                 final values = controller.transaction[index];
+                String date = DateFormat.MMMd().format(values.date);
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Container(
-                      height: 100,
+                      height: screenSize.height * 0.1,
                       padding: const EdgeInsets.all(7),
                       margin: const EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
@@ -112,12 +114,12 @@ class TrasactionsScreen extends StatelessWidget {
                             backgroundColor: CustomColors.containerColor,
                             radius: 30,
                             child: Text(
-                              values.date.toString(),
+                              date,
                               style: TextStyle(color: CustomColors.kblack),
                             ),
                           ),
                           title: Text(
-                            '\$ ${values.amount}',
+                            '\$${values.amount}',
                             style: CustomFuction.style(
                                 fontWeight: FontWeight.w600, size: 18),
                           ),
@@ -134,7 +136,6 @@ class TrasactionsScreen extends StatelessWidget {
                 );
               },
               itemCount: controller.transaction.length,
-              separatorBuilder: (context, index) => const Divider(),
             );
           })
         ],

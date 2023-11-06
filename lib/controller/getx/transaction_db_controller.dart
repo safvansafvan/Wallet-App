@@ -11,7 +11,7 @@ class TransactionDbController extends GetxController {
     final transactionBox =
         await Hive.openBox<TransactionModel>(transactionDbName);
     await transactionBox.put(value.id, value);
-    update();
+    await refreshTransaction();
   }
 
   Future<List<TransactionModel>> getTransaction() async {

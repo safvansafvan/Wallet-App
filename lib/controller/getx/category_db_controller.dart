@@ -12,7 +12,7 @@ class CategoryDbController extends GetxController {
   Future<void> insertCategory(CategoryModel value) async {
     final categoryBox = await Hive.openBox<CategoryModel>(categoryDbName);
     await categoryBox.put(value.id, value);
-    reloadUi();
+    await reloadUi();
   }
 
   Future<List<CategoryModel>> getCategorys() async {

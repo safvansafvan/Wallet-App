@@ -8,6 +8,7 @@ import 'package:money_management_app/controller/getx/globel_controller.dart';
 import 'package:money_management_app/controller/getx/transaction_db_controller.dart';
 import 'package:money_management_app/model/category/category_model.dart';
 import 'package:money_management_app/model/transaction.dart/transaction_model.dart';
+import 'package:money_management_app/view/widgets/snack_bar.dart';
 import '../widgets/common_text_field.dart';
 
 class AddTransaction extends StatefulWidget {
@@ -59,7 +60,7 @@ class _AddTransactionState extends State<AddTransaction> {
                     children: [
                       CommonTextFormField(
                           keyboardType: TextInputType.name,
-                          amountController: amountController,
+                          amountController: purposeController,
                           title: 'Purpose'),
                       CustomHeights.heightFive(context),
                       CommonTextFormField(
@@ -176,18 +177,25 @@ class _AddTransactionState extends State<AddTransaction> {
     final globelController = Get.put(GlobelController());
     final transactionController = Get.put(TransactionDbController());
     if (selectIdDrop == null) {
-      return;
+      return snakBarWidget(context, 'Category Is Required', CustomColors.kred);
     }
     if (globelController.selectedCategoryModel == null) {
-      return;
+      return snakBarWidget(
+          context, 'Select Income Or Expence', CustomColors.kred);
+    }
+    if (globelController.selectedDate == null) {
+      return snakBarWidget(context, 'Date Is Required', CustomColors.kred);
     }
     final amount = double.parse(amountController.text);
     final model = TransactionModel(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
         purpose: purposeController.text,
         amount: amount,
         date: globelController.selectedDate!,
         type: globelController.selectedCategoryType!,
         category: globelController.selectedCategoryModel!);
     await transactionController.insertTransaction(model);
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
   }
 }
