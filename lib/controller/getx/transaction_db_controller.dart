@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:hive/hive.dart';
 import 'package:money_management_app/model/category/category_model.dart';
 import 'package:money_management_app/model/transaction.dart/transaction_model.dart';
@@ -19,19 +18,21 @@ class TransactionDbController extends GetxController {
     await refreshTransaction();
   }
 
-  Future<List<TransactionModel>> getTransaction() async {
+  Future<List<TransactionModel>> getTransactions() async {
     final transactionBox =
         await Hive.openBox<TransactionModel>(transactionDbName);
     return transactionBox.values.toList();
   }
 
-  Future<List<TransactionModel>> getAllTransactions() async {
-    final db = await Hive.openBox<TransactionModel>(transactionDbName);
-    return db.values.toList();
+  Future<void> remove(String id) async {
+    final transactionBox =
+        await Hive.openBox<TransactionModel>(transactionDbName);
+    transactionBox.delete(id);
+    await refreshTransaction();
   }
 
   Future<void> refreshTransaction() async {
-    final list = await getAllTransactions();
+    final list = await getTransactions();
     list.sort((first, second) => second.date.compareTo(first.date));
     transaction.clear();
     transactionFilter.clear();
@@ -54,5 +55,22 @@ class TransactionDbController extends GetxController {
       }
     }
     balance.value = income.value - expence.value;
+    update();
+  }
+
+  Future<void> editTransaction(TransactionModel value) async {
+    final transactionBox =
+        await Hive.openBox<TransactionModel>(transactionDbName);
+    await transactionBox.put(value.id, value);
+
+    await refreshTransaction();
+  }
+
+  Future<void> removeAllTransactions() async {
+    final transactionBox = await Hive.openBox<CategoryModel>(transactionDbName);
+    await transactionBox.clear();
+    await transactionBox.close();
+    update();
+    refreshTransaction();
   }
 }

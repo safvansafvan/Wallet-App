@@ -16,7 +16,7 @@ class DrawerWidget extends StatelessWidget {
             width: double.infinity,
             color: CustomColors.commonClr,
             child: Padding(
-              padding: const EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(left: 20, top: 7),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

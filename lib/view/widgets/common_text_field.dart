@@ -4,22 +4,25 @@ import '../../controller/core/constant.dart';
 class CommonTextFormField extends StatelessWidget {
   const CommonTextFormField(
       {super.key,
-      required this.amountController,
+      required this.controller,
       required this.title,
       required this.keyboardType});
 
-  final TextEditingController amountController;
+  final TextEditingController controller;
   final String title;
   final TextInputType keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: amountController,
+      controller: controller,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: CustomColors.kblack, width: 2)),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: CustomColors.commonClr, width: 2)),
+            borderSide: BorderSide(color: CustomColors.kblack, width: 2)),
         hintText: title,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

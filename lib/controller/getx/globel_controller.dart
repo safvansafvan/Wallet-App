@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:money_management_app/model/category/category_model.dart';
 
 class GlobelController extends GetxController {
+  RxString? selectIdDrop;
   DateTime? selectedDate;
   CategoryType? selectedCategoryType;
   CategoryModel? selectedCategoryModel;
@@ -17,6 +18,11 @@ class GlobelController extends GetxController {
 
   void updateCategoryType(CategoryType value) {
     selectedCategoryType = value;
+    update();
+  }
+
+  void updateDropDownId(String value) {
+    selectIdDrop = RxString(value);
     update();
   }
 }

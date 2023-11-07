@@ -14,6 +14,9 @@ class TrasactionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Get.put(TransactionDbController()).calculateIncomeAndExpence();
+    });
     var screenSize = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
@@ -61,7 +64,7 @@ class TrasactionsScreen extends StatelessWidget {
                           IconButton(
                             onPressed: () {},
                             icon: Icon(
-                              Icons.more_vert,
+                              Icons.search,
                               color: CustomColors.kwhite,
                             ),
                           ),
@@ -82,7 +85,7 @@ class TrasactionsScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
-              margin: const EdgeInsets.only(top: 25, left: 25),
+              margin: const EdgeInsets.only(top: 20, left: 25),
               child: commonHeader('Last Transations'),
             ),
           ),

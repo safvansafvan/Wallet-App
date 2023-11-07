@@ -5,11 +5,16 @@ import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/controller/getx/globel_controller.dart';
 
 class SelectDateButton extends StatelessWidget {
-  const SelectDateButton(
-      {super.key, required this.screenSize, required this.controller});
+  const SelectDateButton({
+    super.key,
+    required this.screenSize,
+    required this.controller,
+    required this.color,
+  });
 
   final Size screenSize;
   final GlobelController controller;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +24,13 @@ class SelectDateButton extends StatelessWidget {
         Text(
           '  Select Date',
           style: CustomFuction.style(
-              fontWeight: FontWeight.w600,
-              size: 15,
-              color: CustomColors.commonClr),
+              fontWeight: FontWeight.w600, size: 15, color: color),
         ),
         Container(
           height: screenSize.height * 0.074,
           width: double.infinity,
           decoration: BoxDecoration(
-              border: Border.all(color: CustomColors.commonClr, width: 2),
+              border: Border.all(color: color, width: 2),
               borderRadius: BorderRadius.circular(10)),
           child: TextButton.icon(
             onPressed: () async {
@@ -42,12 +45,14 @@ class SelectDateButton extends StatelessWidget {
                 controller.updateDate(selectedTempDate);
               }
             },
-            icon: const Icon(Icons.calendar_today),
+            icon: Icon(Icons.calendar_today, color: color),
             label: GetBuilder<GlobelController>(builder: (ctrl) {
               final formattedDate = DateFormat.MMMEd()
                   .format(ctrl.selectedDate ?? DateTime.now());
               return Text(
-                  ctrl.selectedDate == null ? 'Select Date' : formattedDate);
+                ctrl.selectedDate == null ? 'Select Date' : formattedDate,
+                style: TextStyle(color: color),
+              );
             }),
           ),
         ),

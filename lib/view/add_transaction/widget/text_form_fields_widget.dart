@@ -3,12 +3,11 @@ import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/view/widgets/common_text_field.dart';
 
 class TextFormFieldsWidget extends StatelessWidget {
-  const TextFormFieldsWidget({
-    super.key,
-    required this.globalKey,
-    required this.purposeController,
-    required this.amountController,
-  });
+  const TextFormFieldsWidget(
+      {super.key,
+      required this.globalKey,
+      required this.purposeController,
+      required this.amountController});
 
   final GlobalKey<FormState> globalKey;
   final TextEditingController purposeController;
@@ -26,11 +25,11 @@ class TextFormFieldsWidget extends StatelessWidget {
             style: CustomFuction.style(
                 fontWeight: FontWeight.w600,
                 size: 15,
-                color: CustomColors.commonClr),
+                color: CustomColors.kblack),
           ),
           CommonTextFormField(
               keyboardType: TextInputType.name,
-              amountController: purposeController,
+              controller: purposeController,
               title: 'Purpose'),
           CustomHeights.heightFive(context),
           Text(
@@ -38,11 +37,11 @@ class TextFormFieldsWidget extends StatelessWidget {
             style: CustomFuction.style(
                 fontWeight: FontWeight.w600,
                 size: 15,
-                color: CustomColors.commonClr),
+                color: CustomColors.kblack),
           ),
           CommonTextFormField(
               keyboardType: TextInputType.number,
-              amountController: amountController,
+              controller: amountController,
               title: 'Amount'),
         ],
       ),

@@ -4,34 +4,31 @@ import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/controller/getx/globel_controller.dart';
 import 'package:money_management_app/controller/getx/transaction_db_controller.dart';
 import 'package:money_management_app/model/transaction.dart/transaction_model.dart';
-import 'package:money_management_app/view/add_transaction/widget/transaction_body.dart';
+import 'package:money_management_app/view/edit_transactions/widget/edit_body.dart';
 import 'package:money_management_app/view/widgets/snack_bar.dart';
 
-class AddTransaction extends StatefulWidget {
-  static const routeName = 'add_transation';
-  const AddTransaction({super.key});
+// ignore: must_be_immutable
+class EditTransactions extends StatelessWidget {
+  EditTransactions({super.key, required this.object});
 
-  @override
-  State<AddTransaction> createState() => _AddTransactionState();
-}
+  final TransactionModel object;
 
-class _AddTransactionState extends State<AddTransaction> {
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
-  TextEditingController purposeController = TextEditingController();
-  TextEditingController amountController = TextEditingController();
-
-  @override
-  void initState() {
-    Get.put(GlobelController(), permanent: true).setDefultIncomeCategory();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final globelController = Get.put(GlobelController());
+    globelController.selectedCategoryType = object.type;
+    globelController.selectedCategoryModel = object.category;
+    globelController.selectedDate = object.date;
+    TextEditingController editPurposeController =
+        TextEditingController(text: object.purpose);
+    TextEditingController editAmountController =
+        TextEditingController(text: object.amount.toString());
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(10),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -48,7 +45,7 @@ class _AddTransactionState extends State<AddTransaction> {
                           )),
                     ),
                     Text(
-                      'Add Transactions',
+                      'Update Transaction',
                       style: CustomFuction.style(
                           fontWeight: FontWeight.w600,
                           size: 17,
@@ -57,20 +54,22 @@ class _AddTransactionState extends State<AddTransaction> {
                     CircleAvatar(
                       radius: 25,
                       child: IconButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (globalKey.currentState!.validate()) {
-                              addTrasnsaction();
+                              await updateTransaction(context,
+                                  editAmountController, editPurposeController);
                             }
                           },
                           icon: Icon(Icons.check, color: CustomColors.kblack)),
                     )
                   ],
                 ),
-                CustomHeights.commonheight(context),
-                TransactionBody(
-                    purposeController: purposeController,
-                    amountController: amountController,
-                    globalKey: globalKey)
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: EditTransactionBody(
+                        editAmountController: editAmountController,
+                        editPurposeController: editPurposeController,
+                        globalKey: globalKey)),
               ],
             ),
           ),
@@ -79,7 +78,10 @@ class _AddTransactionState extends State<AddTransaction> {
     );
   }
 
-  Future<void> addTrasnsaction() async {
+  Future<void> updateTransaction(
+      context,
+      TextEditingController editAmountController,
+      TextEditingController editPurposeController) async {
     final globelController = Get.put(GlobelController());
     final transactionController = Get.put(TransactionDbController());
     if (globelController.selectIdDrop == null) {
@@ -92,11 +94,11 @@ class _AddTransactionState extends State<AddTransaction> {
     if (globelController.selectedDate == null) {
       return snakBarWidget(context, 'Date Is Required', CustomColors.kred);
     }
-    final amount = double.parse(amountController.text);
+    final amount = double.tryParse(editAmountController.text);
     final model = TransactionModel(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        purpose: purposeController.text,
-        amount: amount,
+        id: object.id,
+        purpose: editPurposeController.text,
+        amount: amount ?? 0.0,
         date: globelController.selectedDate!,
         type: globelController.selectedCategoryType!,
         category: globelController.selectedCategoryModel!);
