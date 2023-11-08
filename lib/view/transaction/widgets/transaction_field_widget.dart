@@ -8,12 +8,11 @@ import '../../../model/category/category_model.dart';
 import '../../../model/transaction.dart/transaction_model.dart';
 
 class TransactionFieldWidget extends StatelessWidget {
-  const TransactionFieldWidget({
-    super.key,
-    required this.screenSize,
-    required this.values,
-    required this.date,
-  });
+  const TransactionFieldWidget(
+      {super.key,
+      required this.screenSize,
+      required this.values,
+      required this.date});
 
   final Size screenSize;
   final TransactionModel values;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:money_management_app/view/search/search_transaction.dart';
 import 'widgets/transaction_field_widget.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/view/widgets/common_header.dart';
@@ -62,7 +63,14 @@ class TrasactionsScreen extends StatelessWidget {
                                 color: CustomColors.kwhite),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SearchTransaction(),
+                                  ));
+                            },
                             icon: Icon(
                               Icons.search,
                               color: CustomColors.kwhite,
