@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money_management_app/view/settings/view/about_us.dart';
+import 'package:money_management_app/view/settings/view/privacy.dart';
 import 'package:share/share.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/controller/getx/category_db_controller.dart';
@@ -29,7 +31,9 @@ class SettingsTileWidget extends StatelessWidget {
       onTap: () async {
         if (isFeedback == true) {
         } else if (isAboutus == true) {
+          Navigator.pushNamed(context, AboutUs.route);
         } else if (isPrivacy == true) {
+          Navigator.pushNamed(context, Privacy.route);
         } else if (isShare == true) {
           shareApp('com.example');
         } else if (resetApp == true) {

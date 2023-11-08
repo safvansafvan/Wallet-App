@@ -6,6 +6,8 @@ import 'package:money_management_app/model/category/category_model.dart';
 import 'package:money_management_app/model/transaction.dart/transaction_model.dart';
 import 'package:money_management_app/view/add_transaction/add_transaction.dart';
 import 'package:money_management_app/view/settings/settins.dart';
+import 'package:money_management_app/view/settings/view/about_us.dart';
+import 'package:money_management_app/view/settings/view/privacy.dart';
 import 'package:money_management_app/view/splash/screen_loding.dart';
 
 void main() async {
@@ -39,7 +41,9 @@ class MyApp extends StatelessWidget {
       home: const ScrennLoadingScreen(),
       routes: {
         AddTransaction.routeName: (ctx) => const AddTransaction(),
-        Settings.routeName: (ctx) => const Settings()
+        Settings.routeName: (ctx) => const Settings(),
+        Privacy.route: (p0) => const Privacy(),
+        AboutUs.route: (p0) => const AboutUs()
       },
     );
   }

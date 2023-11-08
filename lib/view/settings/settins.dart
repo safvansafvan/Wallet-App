@@ -21,6 +21,8 @@ class Settings extends StatelessWidget {
               size: 20,
               color: CustomColors.kblack),
         ),
+        bottom: const PreferredSize(
+            preferredSize: Size(double.infinity, 0), child: Divider()),
       ),
       body: Column(
         children: [

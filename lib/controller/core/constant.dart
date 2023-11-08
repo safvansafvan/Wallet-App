@@ -29,6 +29,14 @@ class CustomHeights {
     return height;
   }
 
+  static minimumHeight(context) {
+    Size size = MediaQuery.of(context).size;
+    var height = SizedBox(
+      height: size.height * 0.02,
+    );
+    return height;
+  }
+
   static commonheight(context) {
     Size size = MediaQuery.of(context).size;
     var height = SizedBox(
