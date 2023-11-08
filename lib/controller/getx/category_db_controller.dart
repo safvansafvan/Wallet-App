@@ -45,6 +45,6 @@ class CategoryDbController extends GetxController {
     final categoryBox = await Hive.openBox<CategoryModel>(categoryDbName);
     await categoryBox.clear();
     await categoryBox.close();
-    reloadUi();
+    await reloadUi();
   }
 }

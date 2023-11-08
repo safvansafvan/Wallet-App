@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:money_management_app/view/search/search_transaction.dart';
+import 'package:money_management_app/view/settings/settins.dart';
 import 'widgets/transaction_field_widget.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/view/widgets/common_header.dart';
@@ -50,9 +51,9 @@ class TrasactionsScreen extends StatelessWidget {
                         children: [
                           IconButton(
                             onPressed: () {
-                              Scaffold.of(context).openDrawer();
+                              Navigator.pushNamed(context, Settings.routeName);
                             },
-                            icon: Icon(Icons.menu_rounded,
+                            icon: Icon(Icons.settings,
                                 color: CustomColors.kwhite),
                           ),
                           Text(

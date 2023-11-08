@@ -67,10 +67,10 @@ class TransactionDbController extends GetxController {
   }
 
   Future<void> removeAllTransactions() async {
-    final transactionBox = await Hive.openBox<CategoryModel>(transactionDbName);
+    final transactionBox =
+        await Hive.openBox<TransactionModel>(transactionDbName);
     await transactionBox.clear();
     await transactionBox.close();
-    update();
-    refreshTransaction();
+    await refreshTransaction();
   }
 }

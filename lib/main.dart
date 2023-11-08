@@ -5,6 +5,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:money_management_app/model/category/category_model.dart';
 import 'package:money_management_app/model/transaction.dart/transaction_model.dart';
 import 'package:money_management_app/view/add_transaction/add_transaction.dart';
+import 'package:money_management_app/view/settings/settins.dart';
 import 'package:money_management_app/view/splash/screen_loding.dart';
 
 void main() async {
@@ -36,7 +37,10 @@ class MyApp extends StatelessWidget {
           fontFamily: GoogleFonts.inter().fontFamily),
       debugShowCheckedModeBanner: false,
       home: const ScrennLoadingScreen(),
-      routes: {AddTransaction.routeName: (ctx) => const AddTransaction()},
+      routes: {
+        AddTransaction.routeName: (ctx) => const AddTransaction(),
+        Settings.routeName: (ctx) => const Settings()
+      },
     );
   }
 }

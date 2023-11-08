@@ -42,7 +42,7 @@ class CustomWidth {
   static widthFive(context) {
     Size size = MediaQuery.of(context).size;
     var width = SizedBox(
-      width: size.width * 0.01,
+      width: size.width * 0.04,
     );
     return width;
   }

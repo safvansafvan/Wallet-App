@@ -20,6 +20,7 @@ dependencies:
   hive_flutter: ^1.1.0
   get: ^4.6.6
   intl: ^0.18.1
+  share: 2.0.4
   flutter_slidable: ^3.0.1
 dev_dependencies:
   flutter_test:
