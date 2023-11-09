@@ -50,7 +50,7 @@ class FeedbackS extends StatelessWidget {
                   hintText: 'Email'),
               CustomHeights.commonheight(context),
               FeedbackTileWidget(
-                  nameController: nameController,
+                  nameController: subjectController,
                   screenSize: screenSize,
                   hintText: 'Subject'),
               CustomHeights.commonheight(context),
