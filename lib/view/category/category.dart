@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/view/category/tab_bar/expence.dart';
 import 'package:money_management_app/view/category/tab_bar/income.dart';
+import 'package:money_management_app/view/settings/settins.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -26,9 +27,9 @@ class _CategoryScreenState extends State<CategoryScreen>
         AppBar(
           backgroundColor: CustomColors.commonClr,
           leading: IconButton(
-              onPressed: () => Scaffold.of(context).openDrawer(),
+              onPressed: () => Navigator.pushNamed(context, Settings.routeName),
               icon: Icon(
-                Icons.menu,
+                Icons.settings,
                 color: CustomColors.kwhite,
               )),
           title: Text(

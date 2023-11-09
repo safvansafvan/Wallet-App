@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money_management_app/view/settings/view/about_us.dart';
+import 'package:money_management_app/view/settings/view/feedback.dart';
 import 'package:money_management_app/view/settings/view/privacy.dart';
 import 'package:share/share.dart';
 import 'package:money_management_app/controller/core/constant.dart';
@@ -30,6 +31,7 @@ class SettingsTileWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         if (isFeedback == true) {
+          Navigator.pushNamed(context, FeedbackS.route);
         } else if (isAboutus == true) {
           Navigator.pushNamed(context, AboutUs.route);
         } else if (isPrivacy == true) {
