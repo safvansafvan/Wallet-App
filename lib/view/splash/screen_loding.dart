@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:money_management_app/controller/core/constant.dart';
+import 'package:money_management_app/controller/getx/category_db_controller.dart';
+import 'package:money_management_app/controller/getx/transaction_db_controller.dart';
 import 'package:money_management_app/view/home/home_screen.dart';
 
 class ScrennLoadingScreen extends StatefulWidget {
@@ -15,6 +18,8 @@ class _ScrennLoadingScreenState extends State<ScrennLoadingScreen> {
   void initState() {
     super.initState();
     navigation(context);
+    Get.put(CategoryDbController()).reloadUi();
+    Get.put(TransactionDbController()).refreshTransaction();
   }
 
   @override
@@ -63,6 +68,6 @@ class _ScrennLoadingScreenState extends State<ScrennLoadingScreen> {
   Future<void> navigation(context) async {
     await Future.delayed(const Duration(seconds: 3), () {});
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const MyHomeScreen()));
+        context, MaterialPageRoute(builder: (context) => MyHomeScreen()));
   }
 }
