@@ -42,18 +42,8 @@ class Settings extends StatelessWidget {
               icon: Icons.share_outlined, text: 'Share', isShare: true),
           SettingsTileWidget(
               icon: Icons.restore, text: 'Reset App', resetApp: true),
-          const Spacer(),
-          RichText(
-            text: TextSpan(
-              text: 'Version : ',
-              style: TextStyle(fontSize: 17, color: CustomColors.commonClr),
-              children: const <TextSpan>[
-                TextSpan(
-                    text: '1.0.0',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ],
-            ),
-          )
+          SettingsTileWidget(
+              icon: Icons.verified_user_outlined, text: 'Version : 1.0.0'),
         ],
       ),
     );
