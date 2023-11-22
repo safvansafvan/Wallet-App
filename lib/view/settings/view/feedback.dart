@@ -19,81 +19,93 @@ class FeedbackS extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back_ios_new_rounded)),
-        centerTitle: true,
-        title: Text(
-          'Contact Our Team',
-          style: CustomFuction.style(
-              fontWeight: FontWeight.w600,
-              size: 17,
-              color: CustomColors.kblack),
+      body: Container(
+        height: double.maxFinite,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [CustomColors.commonClr, CustomColors.gradientSecond]),
         ),
-        bottom: const PreferredSize(
-            preferredSize: Size(double.infinity, 0), child: Divider()),
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: globalKey,
-          child: Column(
-            children: [
-              FeedbackTileWidget(
-                  nameController: nameController,
-                  screenSize: screenSize,
-                  hintText: 'Name'),
-              CustomHeights.commonheight(context),
-              FeedbackTileWidget(
-                  nameController: emailController,
-                  screenSize: screenSize,
-                  hintText: 'Email'),
-              CustomHeights.commonheight(context),
-              FeedbackTileWidget(
-                  nameController: subjectController,
-                  screenSize: screenSize,
-                  hintText: 'Subject'),
-              CustomHeights.commonheight(context),
-              Container(
-                height: 200,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: Colors.blueGrey[100],
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: TextFormField(
-                  controller: contentController,
-                  maxLength: null,
-                  maxLines: null,
-                  decoration: const InputDecoration(
-                    hintText: 'Content',
-                    focusedBorder:
-                        OutlineInputBorder(borderSide: BorderSide.none),
-                    enabledBorder:
-                        OutlineInputBorder(borderSide: BorderSide.none),
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            ListTile(
+              leading: IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: CustomColors.kwhite,
+                  )),
+              title: Text(
+                'Contact Our Team',
+                style: CustomFuction.style(
+                    fontWeight: FontWeight.w600,
+                    size: 17,
+                    color: CustomColors.kwhite),
+              ),
+            ),
+            Form(
+              key: globalKey,
+              child: Column(
+                children: [
+                  FeedbackTileWidget(
+                      nameController: nameController,
+                      screenSize: screenSize,
+                      hintText: 'Name'),
+                  CustomHeights.commonheight(context),
+                  FeedbackTileWidget(
+                      nameController: emailController,
+                      screenSize: screenSize,
+                      hintText: 'Email'),
+                  CustomHeights.commonheight(context),
+                  FeedbackTileWidget(
+                      nameController: subjectController,
+                      screenSize: screenSize,
+                      hintText: 'Subject'),
+                  CustomHeights.commonheight(context),
+                  Container(
+                    height: 200,
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey[100],
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: TextFormField(
+                      controller: contentController,
+                      maxLength: null,
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                        hintText: 'Content',
+                        focusedBorder:
+                            OutlineInputBorder(borderSide: BorderSide.none),
+                        enabledBorder:
+                            OutlineInputBorder(borderSide: BorderSide.none),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          messageToast('Content is empty');
+                        }
+                        return;
+                      },
+                    ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      messageToast('Content is empty');
+                ],
+              ),
+            ),
+            CustomHeights.commonheight(context),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: ElevatedButton.icon(
+                  onPressed: () async {
+                    if (globalKey.currentState!.validate()) {
+                      await conformButtonClick(context);
                     }
-                    return;
                   },
-                ),
-              ),
-              CustomHeights.commonheight(context),
-              SizedBox(
-                width: 350,
-                child: ElevatedButton.icon(
-                    onPressed: () async {
-                      if (globalKey.currentState!.validate()) {
-                        await conformButtonClick(context);
-                      }
-                    },
-                    icon: const Icon(Icons.check),
-                    label: const Text('Conform')),
-              ),
-            ],
-          ),
+                  icon: const Icon(Icons.check),
+                  label: const Text('Conform')),
+            ),
+          ],
         ),
       ),
     );
@@ -135,7 +147,7 @@ class FeedbackS extends StatelessWidget {
             'Content-Type': 'application/json'
           });
       if (respose.statusCode == 200 || respose.statusCode == 201) {
-        messageToast('Content is added');
+        messageToast('Feedback is Sented');
       } else {
         messageToast('somthing went wrong');
         log(respose.statusCode.toString());
