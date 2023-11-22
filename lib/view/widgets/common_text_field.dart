@@ -1,40 +1,48 @@
 import 'package:flutter/material.dart';
-import '../../controller/core/constant.dart';
 
+// ignore: must_be_immutable
 class CommonTextFormField extends StatelessWidget {
-  const CommonTextFormField(
+  CommonTextFormField(
       {super.key,
       required this.controller,
       required this.title,
-      required this.keyboardType});
+      required this.keyboardType,
+      required this.screenSize,
+      this.maxLength});
 
   final TextEditingController controller;
   final String title;
   final TextInputType keyboardType;
+  int? maxLength;
+  final Size screenSize;
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: CustomColors.kblack, width: 2)),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(color: CustomColors.kblack, width: 2)),
-        hintText: title,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+    return Card(
+      elevation: 5,
+      child: SizedBox(
+        height: screenSize.height * 0.074,
+        width: double.infinity,
+        child: Center(
+          child: TextFormField(
+            controller: controller,
+            maxLength: maxLength,
+            maxLines: 1,
+            decoration: InputDecoration(
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              hintText: title,
+            ),
+            keyboardType: keyboardType,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return "Required";
+              }
+              return null;
+            },
+          ),
         ),
       ),
-      keyboardType: keyboardType,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return "Required";
-        }
-        return null;
-      },
     );
   }
 }

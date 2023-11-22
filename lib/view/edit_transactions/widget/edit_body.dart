@@ -35,50 +35,50 @@ class EditTransactionBody extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                width: screenSize.width * 0.35,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: CustomColors.kblack, width: 2)),
-                child: Row(
-                  children: [
-                    Radio(
-                      value: CategoryType.income,
-                      groupValue: ctrl.selectedCategoryType,
-                      onChanged: (value) {
-                        ctrl.updateCategoryType(CategoryType.income);
-                        globelController.selectIdDrop = null;
-                      },
-                    ),
-                    Text(
-                      'Income',
-                      style: CustomFuction.style(
-                          fontWeight: FontWeight.w400, size: 15),
-                    )
-                  ],
+              Card(
+                elevation: 5,
+                child: SizedBox(
+                  width: screenSize.width * 0.35,
+                  child: Row(
+                    children: [
+                      Radio(
+                        value: CategoryType.income,
+                        groupValue: ctrl.selectedCategoryType,
+                        onChanged: (value) {
+                          ctrl.updateCategoryType(CategoryType.income);
+                          globelController.selectIdDrop = null;
+                        },
+                      ),
+                      Text(
+                        'Income',
+                        style: CustomFuction.style(
+                            fontWeight: FontWeight.w400, size: 15),
+                      )
+                    ],
+                  ),
                 ),
               ),
-              Container(
-                width: screenSize.width * 0.35,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: CustomColors.kblack, width: 2)),
-                child: Row(
-                  children: [
-                    Radio(
-                      value: CategoryType.expense,
-                      groupValue: ctrl.selectedCategoryType,
-                      onChanged: (value) {
-                        ctrl.updateCategoryType(CategoryType.expense);
-                        globelController.selectIdDrop = null;
-                      },
-                    ),
-                    Text(
-                      'Expence',
-                      style: CustomFuction.style(
-                          fontWeight: FontWeight.w400, size: 15),
-                    ),
-                  ],
+              Card(
+                elevation: 5,
+                child: SizedBox(
+                  width: screenSize.width * 0.35,
+                  child: Row(
+                    children: [
+                      Radio(
+                        value: CategoryType.expense,
+                        groupValue: ctrl.selectedCategoryType,
+                        onChanged: (value) {
+                          ctrl.updateCategoryType(CategoryType.expense);
+                          globelController.selectIdDrop = null;
+                        },
+                      ),
+                      Text(
+                        'Expence',
+                        style: CustomFuction.style(
+                            fontWeight: FontWeight.w400, size: 15),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -96,33 +96,33 @@ class EditTransactionBody extends StatelessWidget {
                   color: CustomColors.kblack),
             ),
             GetBuilder<GlobelController>(builder: (ctrl) {
-              return Container(
-                height: screenSize.height * 0.074,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    border: Border.all(color: CustomColors.kblack, width: 2),
-                    borderRadius: BorderRadius.circular(10)),
-                child: DropdownButtonHideUnderline(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DropdownButton<String>(
-                      hint: const Text('Select Category'),
-                      value: globelController.selectIdDrop?.value,
-                      items: (ctrl.selectedCategoryType == CategoryType.income
-                              ? categoryController.incomeCategoryList
-                              : categoryController.expenceCategoryList)
-                          .map((e) {
-                        return DropdownMenuItem(
-                          value: e.id,
-                          child: Text(e.name),
-                          onTap: () {
-                            ctrl.selectedCategoryModel = e;
-                          },
-                        );
-                      }).toList(),
-                      onChanged: (selectedVal) {
-                        globelController.updateDropDownId(selectedVal!);
-                      },
+              return Card(
+                elevation: 5,
+                child: SizedBox(
+                  height: screenSize.height * 0.074,
+                  width: double.infinity,
+                  child: DropdownButtonHideUnderline(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButton<String>(
+                        hint: const Text('Select Category'),
+                        value: globelController.selectIdDrop?.value,
+                        items: (ctrl.selectedCategoryType == CategoryType.income
+                                ? categoryController.incomeCategoryList
+                                : categoryController.expenceCategoryList)
+                            .map((e) {
+                          return DropdownMenuItem(
+                            value: e.id,
+                            child: Text(e.name),
+                            onTap: () {
+                              ctrl.selectedCategoryModel = e;
+                            },
+                          );
+                        }).toList(),
+                        onChanged: (selectedVal) {
+                          globelController.updateDropDownId(selectedVal!);
+                        },
+                      ),
                     ),
                   ),
                 ),
@@ -144,6 +144,7 @@ class EditTransactionBody extends StatelessWidget {
                     color: CustomColors.kblack),
               ),
               CommonTextFormField(
+                  screenSize: screenSize,
                   keyboardType: TextInputType.name,
                   controller: editPurposeController,
                   title: 'Purpose'),
@@ -156,6 +157,7 @@ class EditTransactionBody extends StatelessWidget {
                     color: CustomColors.kblack),
               ),
               CommonTextFormField(
+                  screenSize: screenSize,
                   keyboardType: TextInputType.number,
                   controller: editAmountController,
                   title: 'Amount'),

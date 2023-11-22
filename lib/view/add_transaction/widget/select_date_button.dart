@@ -18,20 +18,17 @@ class SelectDateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '  Select Date',
-          style: CustomFuction.style(
-              fontWeight: FontWeight.w600, size: 15, color: color),
-        ),
-        Container(
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(
+        '  Select Date',
+        style: CustomFuction.style(
+            fontWeight: FontWeight.w600, size: 15, color: color),
+      ),
+      Card(
+        elevation: 5,
+        child: SizedBox(
           height: screenSize.height * 0.074,
           width: double.infinity,
-          decoration: BoxDecoration(
-              border: Border.all(color: color, width: 2),
-              borderRadius: BorderRadius.circular(10)),
           child: TextButton.icon(
             onPressed: () async {
               final selectedTempDate = await showDatePicker(
@@ -56,7 +53,7 @@ class SelectDateButton extends StatelessWidget {
             }),
           ),
         ),
-      ],
-    );
+      )
+    ]);
   }
 }

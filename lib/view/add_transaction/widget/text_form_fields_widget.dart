@@ -15,6 +15,8 @@ class TextFormFieldsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+
     return Form(
       key: globalKey,
       child: Column(
@@ -28,6 +30,8 @@ class TextFormFieldsWidget extends StatelessWidget {
                 color: CustomColors.kblack),
           ),
           CommonTextFormField(
+              screenSize: screenSize,
+              maxLength: 10,
               keyboardType: TextInputType.name,
               controller: purposeController,
               title: 'Purpose'),
@@ -40,6 +44,8 @@ class TextFormFieldsWidget extends StatelessWidget {
                 color: CustomColors.kblack),
           ),
           CommonTextFormField(
+              screenSize: screenSize,
+              maxLength: 5,
               keyboardType: TextInputType.number,
               controller: amountController,
               title: 'Amount'),
