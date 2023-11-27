@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:money_management_app/model/category/category_model.dart';
 import 'package:money_management_app/model/transaction.dart/transaction_model.dart';
-import 'package:money_management_app/view/add_transaction/add_transaction.dart';
+import 'package:money_management_app/view/transaction/add_transaction/add_transaction.dart';
 import 'package:money_management_app/view/settings/settins.dart';
 import 'package:money_management_app/view/settings/view/about_us.dart';
 import 'package:money_management_app/view/settings/view/feedback.dart';

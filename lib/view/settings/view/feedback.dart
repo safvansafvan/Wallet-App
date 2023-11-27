@@ -100,6 +100,7 @@ class FeedbackS extends StatelessWidget {
                   onPressed: () async {
                     if (globalKey.currentState!.validate()) {
                       await conformButtonClick(context);
+                      clearControllers();
                     }
                   },
                   icon: const Icon(Icons.check),
@@ -155,5 +156,12 @@ class FeedbackS extends StatelessWidget {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  void clearControllers() {
+    nameController.clear();
+    emailController.clear();
+    subjectController.clear();
+    contentController.clear();
   }
 }

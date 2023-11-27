@@ -23,24 +23,22 @@ class CommonTextFormField extends StatelessWidget {
       child: SizedBox(
         height: screenSize.height * 0.074,
         width: double.infinity,
-        child: Center(
-          child: TextFormField(
-            controller: controller,
-            maxLength: maxLength,
-            maxLines: 1,
-            decoration: InputDecoration(
-              focusedBorder: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              hintText: title,
-            ),
-            keyboardType: keyboardType,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return "Required";
-              }
-              return null;
-            },
+        child: TextFormField(
+          controller: controller,
+          maxLength: maxLength,
+          maxLines: 1,
+          decoration: InputDecoration(
+            focusedBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            hintText: "   $title",
           ),
+          keyboardType: keyboardType,
+          validator: (value) {
+            if (value!.isEmpty) {
+              return "Required";
+            }
+            return null;
+          },
         ),
       ),
     );

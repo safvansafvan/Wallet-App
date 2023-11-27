@@ -31,10 +31,10 @@ class TextFormFieldsWidget extends StatelessWidget {
           ),
           CommonTextFormField(
               screenSize: screenSize,
-              maxLength: 10,
+              maxLength: 15,
               keyboardType: TextInputType.name,
               controller: purposeController,
-              title: 'Purpose'),
+              title: ' Purpose'),
           CustomHeights.heightFive(context),
           Text(
             '  Amount',
@@ -45,10 +45,10 @@ class TextFormFieldsWidget extends StatelessWidget {
           ),
           CommonTextFormField(
               screenSize: screenSize,
-              maxLength: 5,
+              maxLength: 6,
               keyboardType: TextInputType.number,
               controller: amountController,
-              title: 'Amount'),
+              title: ' Amount'),
         ],
       ),
     );

@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/controller/getx/transaction_db_controller.dart';
-import 'package:money_management_app/view/edit_transactions/edit_transactions.dart';
+import 'package:money_management_app/view/transaction/edit_transactions/edit_transactions.dart';
 import '../../../model/category/category_model.dart';
 import '../../../model/transaction.dart/transaction_model.dart';
 
@@ -49,10 +49,9 @@ class TransactionFieldWidget extends StatelessWidget {
           padding: const EdgeInsets.all(7),
           margin: const EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
-              color: CustomColors.containerColor,
-              borderRadius: BorderRadius.circular(15),
-              border: Border.all(color: CustomColors.kblue.withAlpha(100)),
-              boxShadow: [BoxShadow(color: CustomColors.kblue)]),
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.circular(15),
+          ),
           child: Center(
             child: ListTile(
               leading: CircleAvatar(
@@ -66,9 +65,11 @@ class TransactionFieldWidget extends StatelessWidget {
                 ),
               ),
               title: Text(
-                values.purpose,
+                values.purpose.toUpperCase(),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style:
-                    CustomFuction.style(fontWeight: FontWeight.w600, size: 18),
+                    CustomFuction.style(fontWeight: FontWeight.w600, size: 16),
               ),
               subtitle: Text(
                 values.category.type.name,

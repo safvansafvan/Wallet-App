@@ -43,7 +43,7 @@ class Settings extends StatelessWidget {
           SettingsTileWidget(
               icon: Icons.restore, text: 'Reset App', resetApp: true),
           SettingsTileWidget(
-              icon: Icons.verified_user_outlined, text: 'Version : 1.0.0'),
+              icon: Icons.verified_user_outlined, text: 'Version : 1.1.0'),
         ],
       ),
     );

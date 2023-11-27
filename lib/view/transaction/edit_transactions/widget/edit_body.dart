@@ -4,31 +4,30 @@ import 'package:money_management_app/controller/core/constant.dart';
 import 'package:money_management_app/controller/getx/category_db_controller.dart';
 import 'package:money_management_app/controller/getx/globel_controller.dart';
 import 'package:money_management_app/model/category/category_model.dart';
-import 'package:money_management_app/view/add_transaction/widget/select_date_button.dart';
-import 'package:money_management_app/view/add_transaction/widget/text_form_fields_widget.dart';
+import 'package:money_management_app/view/transaction/add_transaction/widget/select_date_button.dart';
+import 'package:money_management_app/view/widgets/common_text_field.dart';
 
 // ignore: must_be_immutable
-class TransactionBody extends StatelessWidget {
-  const TransactionBody({
-    super.key,
-    required this.purposeController,
-    required this.amountController,
-    required this.globalKey,
-  });
-  final TextEditingController purposeController;
-  final TextEditingController amountController;
-  final GlobalKey<FormState> globalKey;
+class EditTransactionBody extends StatelessWidget {
+  const EditTransactionBody(
+      {super.key,
+      required this.editAmountController,
+      required this.editPurposeController,
+      required this.globalKey});
 
+  final TextEditingController editPurposeController;
+  final TextEditingController editAmountController;
+  final GlobalKey<FormState> globalKey;
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    final controller = Get.put(GlobelController());
     final categoryController = Get.put(CategoryDbController());
+    final globelController = Get.put(GlobelController());
+    var screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
         SelectDateButton(
           screenSize: screenSize,
-          controller: controller,
+          controller: globelController,
           color: CustomColors.kblack,
         ),
         CustomHeights.commonheight(context),
@@ -47,7 +46,7 @@ class TransactionBody extends StatelessWidget {
                         groupValue: ctrl.selectedCategoryType,
                         onChanged: (value) {
                           ctrl.updateCategoryType(CategoryType.income);
-                          controller.selectIdDrop = null;
+                          globelController.selectIdDrop = null;
                         },
                       ),
                       Text(
@@ -70,14 +69,14 @@ class TransactionBody extends StatelessWidget {
                         groupValue: ctrl.selectedCategoryType,
                         onChanged: (value) {
                           ctrl.updateCategoryType(CategoryType.expense);
-                          controller.selectIdDrop = null;
+                          globelController.selectIdDrop = null;
                         },
                       ),
                       Text(
                         'Expence',
                         style: CustomFuction.style(
                             fontWeight: FontWeight.w400, size: 15),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -107,35 +106,65 @@ class TransactionBody extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: DropdownButton<String>(
                         hint: const Text('Select Category'),
-                        value: ctrl.selectIdDrop?.value,
+                        value: globelController.selectIdDrop?.value,
                         items: (ctrl.selectedCategoryType == CategoryType.income
                                 ? categoryController.incomeCategoryList
                                 : categoryController.expenceCategoryList)
                             .map((e) {
                           return DropdownMenuItem(
-                            value: e.id,
+                            value: e.id.toString(),
                             child: Text(e.name),
-                            onTap: () {
+                            onTap: () async {
+                              await categoryController.reloadUi();
                               ctrl.selectedCategoryModel = e;
                             },
                           );
                         }).toList(),
                         onChanged: (selectedVal) {
-                          controller.updateDropDownId(selectedVal!);
+                          globelController.updateDropDownId(selectedVal!);
                         },
                       ),
                     ),
                   ),
                 ),
               );
-            })
+            }),
           ],
         ),
         CustomHeights.heightFive(context),
-        TextFormFieldsWidget(
-            globalKey: globalKey,
-            purposeController: purposeController,
-            amountController: amountController),
+        Form(
+          key: globalKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '  Notes',
+                style: CustomFuction.style(
+                    fontWeight: FontWeight.w600,
+                    size: 15,
+                    color: CustomColors.kblack),
+              ),
+              CommonTextFormField(
+                  screenSize: screenSize,
+                  keyboardType: TextInputType.name,
+                  controller: editPurposeController,
+                  title: 'Purpose'),
+              CustomHeights.heightFive(context),
+              Text(
+                '  Amount',
+                style: CustomFuction.style(
+                    fontWeight: FontWeight.w600,
+                    size: 15,
+                    color: CustomColors.kblack),
+              ),
+              CommonTextFormField(
+                  screenSize: screenSize,
+                  keyboardType: TextInputType.number,
+                  controller: editAmountController,
+                  title: 'Amount'),
+            ],
+          ),
+        )
       ],
     );
   }
