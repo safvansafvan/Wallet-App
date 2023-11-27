@@ -20,14 +20,8 @@ class categoryTileWidget extends StatelessWidget {
       height: screenSize.height * 0.08,
       margin: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-        color: CustomColors.containerColor,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: CustomColors.kblue.withAlpha(100),
-        ),
-        boxShadow: [
-          BoxShadow(color: CustomColors.kblue),
-        ],
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Center(
         child: ListTile(

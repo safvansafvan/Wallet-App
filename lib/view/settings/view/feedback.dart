@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:money_management_app/controller/core/constant.dart';
 import 'package:http/http.dart' as http;
+import 'package:money_management_app/controller/getx/internet_controller.dart';
 import 'package:money_management_app/view/settings/view/widget/feedback_tile.dart';
 import 'package:money_management_app/view/widgets/toast_msg.dart';
 
@@ -100,7 +102,6 @@ class FeedbackS extends StatelessWidget {
                   onPressed: () async {
                     if (globalKey.currentState!.validate()) {
                       await conformButtonClick(context);
-                      clearControllers();
                     }
                   },
                   icon: const Icon(Icons.check),
@@ -113,6 +114,9 @@ class FeedbackS extends StatelessWidget {
   }
 
   Future<void> conformButtonClick(ctx) async {
+    final internetController = Get.put(InternetController());
+    await internetController.checkInternet();
+
     if (nameController.text.isEmpty) {
       return;
     }
@@ -125,7 +129,12 @@ class FeedbackS extends StatelessWidget {
     if (subjectController.text.isEmpty) {
       return;
     }
-    await feedbackSent(ctx: ctx);
+    if (internetController.hasInternet.value == false) {
+      messageToast('Enable Internet');
+    } else {
+      await feedbackSent(ctx: ctx);
+      clearControllers();
+    }
   }
 
   Future<void> feedbackSent({required BuildContext ctx}) async {

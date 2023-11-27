@@ -37,7 +37,7 @@ class SettingsTileWidget extends StatelessWidget {
         } else if (isPrivacy == true) {
           Navigator.pushNamed(context, Privacy.route);
         } else if (isShare == true) {
-          shareApp('com.example');
+          shareApp();
         } else if (resetApp == true) {
           await restAppDialog(context);
         }
@@ -106,7 +106,7 @@ class SettingsTileWidget extends StatelessWidget {
     await tController.removeAllTransactions();
   }
 
-  Future<void> shareApp(String shareText) async {
-    await Share.share(shareText);
+  Future<void> shareApp() async {
+    await Share.share('https://www.amazon.com/gp/product/B0CLKW1ZZJ');
   }
 }
