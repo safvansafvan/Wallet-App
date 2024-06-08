@@ -84,7 +84,7 @@ class TransactionFieldWidget extends StatelessWidget {
                   CustomFuction.style(fontWeight: FontWeight.normal, size: 12),
             ),
             title: Text(
-              values.category.type.name,
+              values.category.name,
               style: CustomFuction.style(fontWeight: FontWeight.w600, size: 16),
             ),
             trailing: Text(
