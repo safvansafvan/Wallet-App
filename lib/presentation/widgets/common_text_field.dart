@@ -9,6 +9,7 @@ class CommonTextFormField extends StatelessWidget {
       required this.title,
       required this.keyboardType,
       required this.screenSize,
+      this.isRead = false,
       this.maxLength});
 
   final TextEditingController controller;
@@ -16,6 +17,7 @@ class CommonTextFormField extends StatelessWidget {
   final TextInputType keyboardType;
   int? maxLength;
   final Size screenSize;
+  bool isRead = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class CommonTextFormField extends StatelessWidget {
       height: screenSize.height * 0.074,
       width: double.infinity,
       child: TextFormField(
+        readOnly: isRead,
         cursorColor: CustomColors.appClr,
         controller: controller,
         maxLength: maxLength,

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:money_management_app/config/theme.dart';
 import 'package:money_management_app/domain/model/category/category_model.dart';
 import 'package:money_management_app/domain/model/transaction.dart/transaction_model.dart';
-import 'package:money_management_app/presentation/controllers/category_db_controller.dart';
 import 'package:money_management_app/presentation/controllers/globel_controller.dart';
 import 'package:money_management_app/presentation/views/transaction/add_transaction/widget/select_date_button.dart';
 import 'package:money_management_app/presentation/views/transaction/edit_transactions/edit_transactions.dart';
@@ -12,7 +11,7 @@ import 'package:money_management_app/utils/constant/color.dart';
 import 'package:money_management_app/utils/resouces/res.dart';
 
 // ignore: must_be_immutable
-class EditTransactionBody extends StatelessWidget {
+class EditTransactionBody extends StatefulWidget {
   const EditTransactionBody(
       {super.key,
       required this.object,
@@ -24,9 +23,21 @@ class EditTransactionBody extends StatelessWidget {
   final TextEditingController editAmountController;
   final GlobalKey<FormState> globalKey;
   final TransactionModel? object;
+
+  @override
+  State<EditTransactionBody> createState() => _EditTransactionBodyState();
+}
+
+class _EditTransactionBodyState extends State<EditTransactionBody> {
+  TextEditingController categoryCtrl = TextEditingController();
+  @override
+  void initState() {
+    categoryCtrl.text = widget.object?.category.name ?? "";
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final categoryController = Get.find<CategoryDbController>();
     final globelController = Get.find<GlobelController>();
     var screenSize = MediaQuery.of(context).size;
 
@@ -38,55 +49,37 @@ class EditTransactionBody extends StatelessWidget {
           color: CustomColors.kblack,
         ),
         CustomHeights.commonheight(context),
-        GetBuilder<GlobelController>(builder: (ctrl) {
-          return SizedBox(
-            height: screenSize.height * 0.074,
-            width: double.infinity,
-            child: DropdownButtonHideUnderline(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DropdownButton<String>(
-                  hint: const Text('Select Category'),
-                  value: globelController.selectIdDrop?.value,
-                  items: (ctrl.selectedCategoryType == CategoryType.income
-                          ? categoryController.incomeCategoryList
-                          : categoryController.expenceCategoryList)
-                      .map((e) {
-                    return DropdownMenuItem(
-                      value: e.id.toString(),
-                      child: Text(e.name),
-                      onTap: () async {
-                        await categoryController.reloadUi();
-                        ctrl.selectedCategoryModel = e;
-                      },
-                    );
-                  }).toList(),
-                  onChanged: (selectedVal) {
-                    globelController.updateDropDownId(selectedVal!);
-                  },
-                ),
-              ),
-            ),
-          );
-        }),
+        const Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            '!!The category is not changeable.!!',
+            style: TextStyle(fontSize: 10),
+          ),
+        ),
+        CommonTextFormField(
+            screenSize: screenSize,
+            isRead: true,
+            keyboardType: TextInputType.number,
+            controller: categoryCtrl,
+            title: 'Category'),
         CustomHeights.heightFive(context),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Form(
-            key: globalKey,
+            key: widget.globalKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CommonTextFormField(
                     screenSize: screenSize,
                     keyboardType: TextInputType.name,
-                    controller: editPurposeController,
+                    controller: widget.editPurposeController,
                     title: 'Purpose'),
                 CustomHeights.heightFive(context),
                 CommonTextFormField(
                     screenSize: screenSize,
                     keyboardType: TextInputType.number,
-                    controller: editAmountController,
+                    controller: widget.editAmountController,
                     title: 'Amount'),
               ],
             ),
@@ -153,9 +146,9 @@ class EditTransactionBody extends StatelessWidget {
           child: ElevatedButton.icon(
             style: AppTheme.buttonStyle,
             onPressed: () async {
-              if (globalKey.currentState!.validate()) {
-                EditTransactions().updateTransaction(
-                    context, editAmountController, editPurposeController);
+              if (widget.globalKey.currentState!.validate()) {
+                EditTransactions().updateTransaction(context,
+                    widget.editAmountController, widget.editPurposeController);
               }
             },
             icon: const Icon(Icons.check),
