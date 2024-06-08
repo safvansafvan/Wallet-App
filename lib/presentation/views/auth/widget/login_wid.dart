@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money_management_app/config/theme.dart';
 import 'package:money_management_app/presentation/controllers/auth_controller.dart';
+import 'package:money_management_app/presentation/views/auth/widget/forgot.dart';
 import 'package:money_management_app/presentation/views/auth/widget/login_form.dart';
 import 'package:money_management_app/presentation/widgets/toast_msg.dart';
 import 'package:money_management_app/utils/constant/color.dart';
@@ -43,11 +44,16 @@ class LoginWidget extends StatelessWidget {
                   inputType: TextInputType.name,
                   isPassword: true,
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 20),
-                    child: Text('Forgot password ?'),
+                  child: InkWell(
+                    onTap: () {
+                      forgotPasswordDialog(context);
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.only(right: 20),
+                      child: Text('Forgot password ?'),
+                    ),
                   ),
                 ),
                 GetBuilder<AuthCtrl>(

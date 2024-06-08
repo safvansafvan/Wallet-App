@@ -27,6 +27,7 @@ class AuthCtrl extends GetxController {
   TextEditingController passwordCtrl = TextEditingController();
   TextEditingController conformpasswordCtrl = TextEditingController();
   TextEditingController nameCtrl = TextEditingController();
+  TextEditingController forgotEmailCtrl = TextEditingController();
 
   handleScreens(context) {
     User? user = FirebaseAuth.instance.currentUser;
@@ -134,5 +135,32 @@ class AuthCtrl extends GetxController {
       hasInternet = true;
     }
     update();
+  }
+
+  bool isForgotLoading = false;
+  Future<void> forgotPassword(context) async {
+    isForgotLoading = true;
+    update();
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: forgotEmailCtrl.text)
+          .then((value) {
+        Navigator.pop(context);
+        forgotEmailCtrl.clear();
+        isForgotLoading = false;
+        messageToast(
+          'We have send you a email',
+        );
+        update();
+      });
+    } catch (e) {
+      messageToast(
+        e.toString(),
+      );
+      log(e.toString());
+    } finally {
+      isForgotLoading = false;
+      update();
+    }
   }
 }
