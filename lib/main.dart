@@ -1,19 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:money_management_app/model/category/category_model.dart';
-import 'package:money_management_app/model/transaction.dart/transaction_model.dart';
-import 'package:money_management_app/view/transaction/add_transaction/add_transaction.dart';
-import 'package:money_management_app/view/settings/settins.dart';
-import 'package:money_management_app/view/settings/view/about_us.dart';
-import 'package:money_management_app/view/settings/view/feedback.dart';
-import 'package:money_management_app/view/settings/view/privacy.dart';
-import 'package:money_management_app/view/splash/screen_loding.dart';
+import 'package:money_management_app/config/theme.dart';
+import 'package:money_management_app/domain/model/category/category_model.dart';
+import 'package:money_management_app/domain/model/transaction.dart/transaction_model.dart';
+import 'package:money_management_app/firebase_options.dart';
+import 'package:money_management_app/presentation/views/splash/screen_loding.dart';
+import 'package:money_management_app/utils/constant/color.dart';
+import 'package:money_management_app/utils/resouces/init_controllers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
   if (!Hive.isAdapterRegistered(CategoryTypeAdapter().typeId)) {
     Hive.registerAdapter(CategoryTypeAdapter());
@@ -24,6 +23,9 @@ void main() async {
   if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
     Hive.registerAdapter(TransactionModelAdapter());
   }
+
+  InitCtrl().init();
+
   runApp(const MyApp());
 }
 
@@ -33,20 +35,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'MoneyManagement',
+      title: 'money manager',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-          fontFamily: GoogleFonts.inter().fontFamily),
+        colorScheme: ColorScheme.fromSeed(seedColor: CustomColors.appClr),
+        useMaterial3: true,
+        floatingActionButtonTheme: AppTheme.floatingActionButtonTheme,
+        appBarTheme: AppTheme.appBarTheme,
+      ),
       debugShowCheckedModeBanner: false,
-      home: const ScrennLoadingScreen(),
-      routes: {
-        AddTransaction.routeName: (ctx) => const AddTransaction(),
-        Settings.routeName: (ctx) => const Settings(),
-        Privacy.route: (ctx) => const Privacy(),
-        AboutUs.route: (ctx) => const AboutUs(),
-        FeedbackS.route: (ctx) => FeedbackS()
-      },
+      home: const InitialScreen(),
     );
   }
 }
