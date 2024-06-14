@@ -143,7 +143,7 @@ class TransactionBody extends StatelessWidget {
                 }
               },
               icon: const Icon(Icons.check),
-              label: const Text('Conform')),
+              label: const Text('Confirm')),
         ),
       ],
     );
@@ -170,7 +170,6 @@ class TransactionBody extends StatelessWidget {
         type: globelController.selectedCategoryType!,
         category: globelController.selectedCategoryModel!);
     await transactionController.insertTransaction(model);
-    // ignore: use_build_context_synchronously
     Navigator.pop(context);
   }
 }

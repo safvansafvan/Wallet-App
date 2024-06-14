@@ -52,7 +52,7 @@ class SignUpWid extends StatelessWidget {
                   isPassword: true,
                 ),
                 LoginFrom(
-                  label: 'Conform Password',
+                  label: 'Confirm Password',
                   prefixIcon: Icons.key,
                   controller: lCtrl.conformpasswordCtrl,
                   inputType: TextInputType.name,
