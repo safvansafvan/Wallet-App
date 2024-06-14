@@ -56,8 +56,8 @@ class LoginView extends StatelessWidget {
                       child: RichText(
                         text: TextSpan(
                           text: lCtrl.isLogin == false
-                              ? "Don't have An Account ?"
-                              : 'Have An Account ?',
+                              ? "Don't have An Account ? "
+                              : 'Have An Account ? ',
                           style: TextStyle(color: CustomColors.kgrey),
                           children: [
                             TextSpan(

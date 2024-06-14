@@ -152,7 +152,7 @@ class _EditTransactionBodyState extends State<EditTransactionBody> {
               }
             },
             icon: const Icon(Icons.check),
-            label: const Text('Conform'),
+            label: const Text('Confirm'),
           ),
         )
       ],
